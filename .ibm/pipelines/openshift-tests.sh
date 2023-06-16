@@ -1,5 +1,6 @@
 #!/bin/bash
 LOGFILE="pr-${GIT_PR_NUMBER}-openshift-tests-${BUILD_NUMBER}"
+echo "Log file: ${LOGFILE}"
 # source ./.ibm/pipelines/functions.sh
 
 # install the latest ibmcloud cli on Linux
@@ -20,7 +21,7 @@ ibmcloud config --check-version=false
 ibmcloud plugin install -f container-registry
 ibmcloud plugin install -f kubernetes-service
 
-ibmcloud login -r "${IBM_REGION}" --apikey "${API_KEY_QE}"
+ibmcloud login -r "${IBM_REGION}" -g "${IBM_RSC_GROUP}" --apikey "${SERVICE_ID_API_KEY}"
 ibmcloud oc cluster config --cluster "${OPENSHIFT_CLUSTER_ID}"
 
 install_oc() {
@@ -39,7 +40,7 @@ install_oc() {
 install_oc
 
 oc version --client
-oc login -u apikey -p "${API_KEY_QE}" --server="${IBM_OPENSHIFT_ENDPOINT}"
+oc login -u apikey -p "${SERVICE_ID_API_KEY}" --server="${IBM_OPENSHIFT_ENDPOINT}"
 oc config current-context
 oc project backstage
 
@@ -72,13 +73,17 @@ helm repo add janus-idp https://janus-idp.github.io/helm-backstage
 helm repo update
 helm upgrade -i backstage janus-idp/backstage -n backstage --wait
 
+echo "Waiting for backstage deployment..."
+sleep 45
+
+oc get pods -n backstage
 oc port-forward -n backstage svc/backstage 7007:http-backend &
 # Store the PID of the background process
 PID=$!
 
 sleep 15
 
-# Test to see if Backstage is up and running
+# Check if Backstage is up and running
 BACKSTAGE_URL="http://localhost:7007"
 BACKSTAGE_URL_RESPONSE=$(curl -Is "$BACKSTAGE_URL" | head -n 1)
 echo "$BACKSTAGE_URL_RESPONSE"
