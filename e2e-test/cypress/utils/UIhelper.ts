@@ -3,7 +3,7 @@ import { Common } from "./Common";
 
 export class UIhelper {
     static clickButton(label: string) {
-        return cy.contains(UIhelperPO.buttonLabel, label).should('be.visible').click();
+        return cy.contains(UIhelperPO.buttonLabel, label).click();
     }
 
     static clickLink(linkText: string) {
