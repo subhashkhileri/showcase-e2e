@@ -3,7 +3,7 @@ import { HomePage } from "../support/pages/HomePage";
 import { Common } from "../utils/Common";
 import { gpts } from "../support/testData/gpts";
 
-describe("Test with Guest Sign-in", () => {
+describe("Guest Signin Happy path", () => {
   before(() => {
     Common.loginAsGuest();
   });
