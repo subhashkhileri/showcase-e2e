@@ -1,6 +1,6 @@
-import { githubAPIEndpoints } from "./APIEndpoints";
-
 export class APIHelper {
+  private static githubAPIVersion = "2022-11-28";
+
   static githubRequest(
     method: Cypress.HttpMethod,
     url: string,
@@ -12,7 +12,7 @@ export class APIHelper {
       headers: {
         Accept: "application/vnd.github+json",
         Authorization: `Bearer ${Cypress.env("GH_RHDH_QE_USER_TOKEN")}`,
-        "X-GitHub-Api-Version": "2022-11-28",
+        "X-GitHub-Api-Version": this.githubAPIVersion,
       },
     };
     if (body) {
