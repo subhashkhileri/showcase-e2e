@@ -77,6 +77,5 @@ export class UIhelper {
 
   static clickTab(tabName: string) {
     cy.contains(UIhelperPO.tabs, new RegExp(`^\\s*${tabName}\\s*$`)).click();
-    // Common.waitForLoad();
   }
 }

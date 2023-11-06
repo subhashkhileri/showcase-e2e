@@ -64,4 +64,20 @@ export class BackstageShowcase {
       "body.workflow_runs"
     );
   }
+
+  static verifyPRStatisticsRendered() {
+    cy.contains("tr", /Average Size Of PR(\d+).*lines/g).should("be.visible");
+  }
+
+  static verifyAboutCardIsDisplayed() {
+    cy.get(
+      'a[href="https://github.com/janus-idp/backstage-showcase/tree/main/catalog-entities/components/"]'
+    ).should("be.visible");
+  }
+
+  static verifyPRRows(allPRs: any[], startRow: number, lastRow: number) {
+    allPRs.slice(startRow, lastRow).forEach((allPR) => {
+      cy.contains(allPR.title).should("be.visible");
+    });
+  }
 }

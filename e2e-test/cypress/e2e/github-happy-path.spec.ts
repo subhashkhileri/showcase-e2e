@@ -77,11 +77,8 @@ describe("GitHub Happy path", () => {
     UIhelper.clickLink("Backstage Showcase");
     Common.clickOnGHloginPopup();
     UIhelper.verifyLink("Janus Website", { contains: true });
-    cy.contains("tr", /Average Size Of PR(\d+).*lines/g).should("be.visible");
-
-    cy.get(
-      'a[href="https://github.com/janus-idp/backstage-showcase/tree/main/catalog-entities/components/"]'
-    ).should("be.visible");
+    BackstageShowcase.verifyPRStatisticsRendered();
+    BackstageShowcase.verifyAboutCardIsDisplayed();
   });
 
   it("Verify that the Issues tab renders all the open github issues in the repository", () => {
@@ -97,9 +94,7 @@ describe("GitHub Happy path", () => {
   it("Verify that the Pull/Merge Requests tab renders the 5 most recently updated Open Pull Requests", () => {
     UIhelper.clickTab("Pull/Merge Requests");
     BackstageShowcase.getGithubPRs("open").then((openPRs) => {
-      openPRs.slice(0, 5).forEach((openPR) => {
-        cy.contains(openPR.title).should("be.visible");
-      });
+      BackstageShowcase.verifyPRRows(openPRs, 0, 5);
     });
   });
 
@@ -115,26 +110,18 @@ describe("GitHub Happy path", () => {
   it("Click on the arrows to verify that the next/previous/first/last pages of PRs are loaded", () => {
     BackstageShowcase.getGithubPRs("all", true).then((allPRs) => {
       UIhelper.clickButton("ALL", { force: true });
-      allPRs.slice(0, 5).forEach((allPR) => {
-        cy.contains(allPR.title).should("be.visible");
-      });
+      BackstageShowcase.verifyPRRows(allPRs, 0, 5);
 
       BackstageShowcase.clickNextPage();
-      allPRs.slice(5, 10).forEach((allPR) => {
-        cy.contains(allPR.title).should("be.visible");
-      });
+      BackstageShowcase.verifyPRRows(allPRs, 5, 10);
 
       const lastPagePRs = Math.floor(allPRs.length / 5) * 5;
 
       BackstageShowcase.clickLastPage();
-      allPRs.slice(lastPagePRs, allPRs.length).forEach((allPR) => {
-        cy.contains(allPR.title).should("be.visible");
-      });
+      BackstageShowcase.verifyPRRows(allPRs, lastPagePRs, allPRs.length);
 
       BackstageShowcase.clickPreviousPage();
-      allPRs.slice(lastPagePRs - 5, lastPagePRs).forEach((allPR) => {
-        cy.contains(allPR.title).should("be.visible");
-      });
+      BackstageShowcase.verifyPRRows(allPRs, lastPagePRs - 5, lastPagePRs);
     });
   });
 
