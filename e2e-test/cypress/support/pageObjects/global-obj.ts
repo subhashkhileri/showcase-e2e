@@ -7,4 +7,5 @@ export const UIhelperPO = {
   buttonLabel: 'span[class^="MuiButton-label"]',
   MuiBoxLabel: 'div[class*="MuiBox-root"] label',
   MuiTableRow: 'tr[class*="MuiTableRow-root"]',
+  tabs: '[role="tab"]',
 };
