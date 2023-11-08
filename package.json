@@ -1,0 +1,23 @@
+{
+  "name": "showcase-e2e",
+  "version": "1.0.0",
+  "scripts": {
+    "lint": "eslint cypress/e2e --ext .js,.ts",
+    "lint-staged": "lint-staged",
+    "prettier:check": "prettier --ignore-unknown --check .",
+    "prettier:fix": "prettier --ignore-unknown --write .",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@spotify/prettier-config": "^15.0.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.0.2",
+    "prettier": "^3.0.3"
+  },
+  "prettier": "@spotify/prettier-config",
+  "lint-staged": {
+    "cypress/e2e/*.{ts,tsx,js,mjs,jsx}": [
+      "eslint cypress/e2e --ext .js,.ts"
+    ]
+  }
+}
