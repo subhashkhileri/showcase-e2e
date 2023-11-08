@@ -1,22 +1,22 @@
 export class APIHelper {
-  private static githubAPIVersion = "2022-11-28";
+  private static githubAPIVersion = '2022-11-28';
 
   static githubRequest(
     method: Cypress.HttpMethod,
     url: string,
-    body?: Cypress.RequestBody
+    body?: Cypress.RequestBody,
   ) {
     const options = {
       method: method,
       url: url,
       headers: {
-        Accept: "application/vnd.github+json",
-        Authorization: `Bearer ${Cypress.env("GH_RHDH_QE_USER_TOKEN")}`,
-        "X-GitHub-Api-Version": this.githubAPIVersion,
+        Accept: 'application/vnd.github+json',
+        Authorization: `Bearer ${Cypress.env('GH_RHDH_QE_USER_TOKEN')}`,
+        'X-GitHub-Api-Version': this.githubAPIVersion,
       },
     };
     if (body) {
-      options["body"] = body;
+      options['body'] = body;
     }
     return cy.request(options);
   }
@@ -24,11 +24,11 @@ export class APIHelper {
   static getGithubPaginatedRequest(
     url: string,
     pageNo: number = 1,
-    response = []
+    response = [],
   ) {
-    return APIHelper.githubRequest("GET", `${url}&page=${pageNo}`)
-      .its("body")
-      .then((body) => {
+    return APIHelper.githubRequest('GET', `${url}&page=${pageNo}`)
+      .its('body')
+      .then(body => {
         if (!body.length) {
           return cy.wrap(response);
         }

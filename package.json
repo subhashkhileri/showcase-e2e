@@ -2,13 +2,14 @@
   "name": "showcase-e2e",
   "version": "1.0.0",
   "scripts": {
-    "lint": "eslint cypress/e2e --ext .js,.ts",
+    "lint": "eslint e2e-test/cypress/e2e --ext .js,.ts",
     "lint-staged": "lint-staged",
-    "prettier:check": "prettier --ignore-unknown --check .",
-    "prettier:fix": "prettier --ignore-unknown --write .",
+    "prettier:check": "prettier --ignore-unknown --check e2e-test",
+    "prettier:fix": "prettier --ignore-unknown --write e2e-test",
     "prepare": "husky install"
   },
   "devDependencies": {
+    "eslint": "^8.40.0",
     "@spotify/prettier-config": "^15.0.0",
     "husky": "^8.0.3",
     "lint-staged": "^15.0.2",
@@ -16,8 +17,14 @@
   },
   "prettier": "@spotify/prettier-config",
   "lint-staged": {
-    "cypress/e2e/*.{ts,tsx,js,mjs,jsx}": [
-      "eslint cypress/e2e --ext .js,.ts"
+    "e2e-test/cypress/e2e/*.{ts,tsx,js,mjs,jsx}": [
+      "eslint --ext .js,.ts"
+    ],
+    "*.{ts,tsx,js,mjs,jsx}": [
+      "prettier --write"
+    ],
+    "*.json": [
+      "prettier --write"
     ]
   }
 }

@@ -1,5 +1,5 @@
 const backstageShowcaseAPI =
-  "https://api.github.com/repos/janus-idp/backstage-showcase";
+  'https://api.github.com/repos/janus-idp/backstage-showcase';
 
 export const githubAPIEndpoints = {
   pull: (state: string) =>

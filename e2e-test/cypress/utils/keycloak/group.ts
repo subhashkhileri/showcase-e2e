@@ -1,8 +1,7 @@
 interface Group {
-    id: string;
-    name: string;
-    path: string;
+  id: string;
+  name: string;
+  path: string;
 }
 
-export default Group
-
+export default Group;

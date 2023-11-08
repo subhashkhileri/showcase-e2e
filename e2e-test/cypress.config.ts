@@ -1,5 +1,5 @@
-import { defineConfig } from "cypress";
-import installLogsPrinter from "cypress-terminal-report/src/installLogsPrinter";
+import { defineConfig } from 'cypress';
+import installLogsPrinter from 'cypress-terminal-report/src/installLogsPrinter';
 
 export default defineConfig({
   defaultCommandTimeout: 40000,
@@ -17,19 +17,19 @@ export default defineConfig({
   e2e: {
     testIsolation: false,
     defaultCommandTimeout: 10000,
-    baseUrl: "https://PLACE_HOLDER",
-    specPattern: "cypress/e2e/**/*.spec.ts",
+    baseUrl: 'https://PLACE_HOLDER',
+    specPattern: 'cypress/e2e/**/*.spec.ts',
 
     setupNodeEvents(on, config) {
       const defaultValues: { [key: string]: string | boolean } = {
-        GH_USER_ID: "rhdh-qe",
-        GH_USER_PASS: "",
-        GH_2FA_SECRET: "",
-        GH_RHDH_QE_USER_TOKEN: "",
-        KEYCLOAK_URL: "",
-        KEYCLOAK_REALM: "",
-        KEYCLOAK_CLIENT_ID: "",
-        KEYCLOAK_CLIENT_SECRET: "",
+        GH_USER_ID: 'rhdh-qe',
+        GH_USER_PASS: '',
+        GH_2FA_SECRET: '',
+        GH_RHDH_QE_USER_TOKEN: '',
+        KEYCLOAK_URL: '',
+        KEYCLOAK_REALM: '',
+        KEYCLOAK_CLIENT_ID: '',
+        KEYCLOAK_CLIENT_SECRET: '',
       };
 
       for (const key in defaultValues) {
@@ -39,7 +39,7 @@ export default defineConfig({
       }
 
       installLogsPrinter(on, {
-        printLogsToConsole: "always",
+        printLogsToConsole: 'always',
       });
       return config;
     },
