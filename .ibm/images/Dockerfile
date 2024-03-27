@@ -49,8 +49,8 @@ RUN echo "whoami: $(whoami)" \
     "firefox:         $(firefox --version || true) \n"
 
 RUN curl -fsSL https://clis.cloud.ibm.com/install/linux | sh && \
-    curl -sLO https://github.com/cli/cli/releases/download/v2.1.0/gh_2.1.0_linux_amd64.deb && \
-    apt install ./gh_2.1.0_linux_amd64.deb && \
+    # curl -sLO https://github.com/cli/cli/releases/download/v2.1.0/gh_2.1.0_linux_amd64.deb && \
+    # apt install ./gh_2.1.0_linux_amd64.deb && \
     curl -sLO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && \
     chmod +x kubectl && \
     mv kubectl /usr/local/bin/ && \
